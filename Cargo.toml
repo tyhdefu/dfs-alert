@@ -1,0 +1,17 @@
+[package]
+name = "dfs_alert"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rnotify = { git = "https://github.com/tyhdefu/rnotify.git" }
+reqwest = { version = "0.11.14", features = ["json"] }
+chrono = { version = "0.4.23", features = ["serde"] }
+serde = "1.0.152"
+tokio = { version = "1.25.0", features = ["rt-multi-thread", "macros"] }
+toml = "0.7.1"
+csv = "1.1.6"
+
+serde_json = "1.0.91"
