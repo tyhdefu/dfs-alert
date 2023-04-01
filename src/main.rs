@@ -25,8 +25,6 @@ const TEST_URL: &str = "https://data.nationalgrideso.com/dfs/demand-flexibility-
 
 #[tokio::main]
 async fn main() {
-    println!("Hello, world!");
-
     let config_str = std::fs::read_to_string("routing.toml")
         .expect("Failed to read config file");
     let routing_config: Config = toml::from_str(&config_str)
@@ -44,10 +42,10 @@ async fn main() {
         Ok(saved_data) => {
             println!("Loaded previous state: {:?}", saved_data);
             if let Some(old) = saved_data.get_live().get_industry_notification() {
-                live_resources.get_anticipated().update(old.clone())
+                live_resources.get_anticipated().set(old.clone())
             }
             if let Some(old) = saved_data.get_test().get_industry_notification() {
-                test_resources.get_anticipated().update(old.clone());
+                test_resources.get_anticipated().set(old.clone());
             }
         }
         Err(err) => {
@@ -154,7 +152,10 @@ async fn run(name: &str, resources: &mut PreviousResources, url: &str, router: &
 
 async fn check_for_changes(previous: &mut PreviousResources, url: &str) -> Result<Option<NewPossibleEvent>, Box<dyn Error>> {
     let available_resources: AvailableResources = reqwest::get(url).await?.json().await?;
+    println!("available_resources: {:?}", available_resources);
     let anticipated = available_resources.get_dfs_industry_notification_resource()?;
+    println!("anticipated: {:?}", anticipated);
+    println!("previous: {:?}", previous.get_anticipated());
 
     //let supplier_details = available_resources.get_dfs_supplier_details_source()?;
 

@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
-use chrono::{Local, NaiveDateTime};
+use chrono::{Local, NaiveDateTime, TimeZone};
 use rnotifylib::message::{Level, Message};
 use rnotifylib::message::builder::MessageBuilder;
 use rnotifylib::message::component::Component;
@@ -27,6 +27,11 @@ impl IndustryNotificationResource {
     pub fn update(&mut self, new: DfsIndustryNotification) {
         self.data = Some(new);
         self.last_checked = Local::now().naive_local();
+    }
+
+    pub fn set(&mut self, data: DfsIndustryNotification) {
+        self.last_checked = data.when.clone();
+        self.data = Some(data);
     }
 }
 

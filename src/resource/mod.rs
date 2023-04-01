@@ -7,7 +7,7 @@ pub mod error;
 pub mod anticipation;
 pub mod details;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 pub struct AvailableResources {
     resources: Vec<Resource>,
 }
@@ -29,7 +29,7 @@ impl AvailableResources {
     }
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Debug)]
 pub struct Resource {
     name: String,
     last_modified: NaiveDateTime,
