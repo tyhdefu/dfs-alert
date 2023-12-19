@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
-use chrono::{Local, NaiveDateTime, TimeZone};
+use chrono::{Local, NaiveDateTime};
 use rnotifylib::message::{Level, Message};
 use rnotifylib::message::builder::MessageBuilder;
 use rnotifylib::message::component::Component;
@@ -40,6 +40,7 @@ pub enum IndustryNotificationType {
     RequirementPublished,
     RequirementAnticipated,
     RequirementCancelled,
+    Test
 }
 
 impl FromStr for IndustryNotificationType {
@@ -52,6 +53,7 @@ impl FromStr for IndustryNotificationType {
             "Test DFS Requirement not issued" => Ok(RequirementCancelled),
             "Live DFS Requirement not issued" => Ok(RequirementCancelled),
             "Requirement Cancelled" => Ok(RequirementCancelled),
+            "Test" => Ok(Test),
             _ => Err(UnknownIndustryNotificationType { got: s.to_owned() })
         }
     }

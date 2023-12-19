@@ -13,15 +13,17 @@ pub struct AvailableResources {
 }
 
 const PARTIAL_INDUSTRY_NOTIFICATION_MATCH: &str = "service_update_industry_notifications_";
+const NEW_INDUSTRY_NOTIFICATION_MATCH: &str = "dfs_industry_notification";
 
 impl AvailableResources {
     pub fn get_dfs_industry_notification_resource(&self) -> Result<Resource, ResourceNotFoundError> {
         for resource in &self.resources {
-            if resource.get_name().starts_with(PARTIAL_INDUSTRY_NOTIFICATION_MATCH) {
+            if resource.get_name().starts_with(PARTIAL_INDUSTRY_NOTIFICATION_MATCH)
+                || resource.get_name().starts_with(NEW_INDUSTRY_NOTIFICATION_MATCH) {
                 return Ok(resource.clone())
             }
         }
-        Err(ResourceNotFoundError::new(format!("{}*", PARTIAL_INDUSTRY_NOTIFICATION_MATCH)))
+        Err(ResourceNotFoundError::new(format!("{}*|{}*", PARTIAL_INDUSTRY_NOTIFICATION_MATCH, NEW_INDUSTRY_NOTIFICATION_MATCH)))
     }
 
     pub fn get_dfs_supplier_details_source(&self) -> Option<Resource> {
