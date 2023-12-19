@@ -1,10 +1,13 @@
 use serde::{Deserialize, Serialize};
 use crate::resource::anticipation::DfsIndustryNotification;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct AllSavedData {
+    #[serde(default)]
     pub test: SavedData,
+    #[serde(default)]
     pub live: SavedData,
+    #[serde(default)]
     pub new_2023: SavedData,
 }
 
@@ -22,8 +25,9 @@ impl AllSavedData {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct SavedData {
+    #[serde(default)]
     pub industry_notification: Option<DfsIndustryNotification>,
 }
 

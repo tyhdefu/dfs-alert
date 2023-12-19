@@ -108,11 +108,16 @@ impl DfsIndustryNotification {
                 body.raw(format!("{:?} - {}", self, live_or_test));
 
                 body.text_block(|block| {
-                    block.append_plain(format!("{:?} at {}", self.anticipation_type, self.when));
+                    block.append_plain(format!("{:?} notification pushed at {}", self.anticipation_type, self.when));
                 });
 
                 body.section("Description", |builder| {
                     builder.append_plain(&self.description);
+                });
+
+                body.section("Links", |builder| {
+                    builder.append_plain("Requirement table (incl. actual times) - https://www.nationalgrideso.com/data-portal/demand-flexibility-service/dfs_service_requirements\n");
+                    builder.append_plain("Notification table - https://www.nationalgrideso.com/data-portal/demand-flexibility-service/dfs_industry_notification\n");
                 });
             })
             .component(Component::from("dfs/industry_notification"))
